@@ -36,7 +36,7 @@ public class Movement : MonoBehaviour
         // Raw for now because of no smoothing (better for keyboard), for Arduino maybe without raw.
         float inputAxisX = Input.GetAxisRaw("Horizontal");
         float inputAxisZ = Input.GetAxisRaw("Vertical");
-        Vector3 movement = (transform.forward * inputAxisX) + (transform.right * inputAxisZ);
+        Vector3 movement = (transform.right * inputAxisX) + (transform.forward * inputAxisZ);
         movement = movement.normalized * moveSpeed;
         rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
     }

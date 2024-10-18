@@ -25,8 +25,8 @@ public class Camera : MonoBehaviour
     void updateCameraRotation()
     {
         Quaternion cameraRotation = objectToFocus.transform.rotation;
-        Quaternion rotationOffset = Quaternion.Euler(0, 90, 0);
-        transform.rotation = cameraRotation * rotationOffset;
+        //Quaternion rotationOffset = Quaternion.Euler(0, 0, 0);
+        transform.rotation = cameraRotation;
     }
 
     void updateCameraPosition()
