@@ -70,6 +70,5 @@ public class Spawner : MonoBehaviour
         GameObject spawnedItem = Instantiate(itemToSpawn);
         itemToSpawn.transform.position = new Vector3(position.x, 0.75f, position.z);
         itemsDictionary.Add(position, spawnedItem);
-        Debug.Log(itemsDictionary);
     }
 }
