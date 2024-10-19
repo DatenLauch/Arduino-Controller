@@ -35,7 +35,6 @@ public class Spawner : MonoBehaviour
     {
         while (quantityToSpawn > 0)
         {
-            quantityToSpawn--;
             int tries = 0;
             while (tries < 100)
             {
@@ -68,6 +67,7 @@ public class Spawner : MonoBehaviour
     void spawnOnPosition(Vector3 position)
     {
         GameObject spawnedItem = Instantiate(itemToSpawn);
+        quantityToSpawn--;
         itemToSpawn.transform.position = new Vector3(position.x, 0.75f, position.z);
         itemsDictionary.Add(position, spawnedItem);
     }
