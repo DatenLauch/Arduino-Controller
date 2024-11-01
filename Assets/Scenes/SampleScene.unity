@@ -536,6 +536,10 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 3045449105758906551, guid: 340f92a96f0454146993c2177a8bafbf, type: 3}
+      propertyPath: controllerEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6250246638158321723, guid: 340f92a96f0454146993c2177a8bafbf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

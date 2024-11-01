@@ -10,34 +10,48 @@ public class Movement : MonoBehaviour
     [SerializeField]
     float rotationSpeed;
     Rigidbody rb;
-    // Start is called before the first frame update
+    [SerializeField]
+    bool controllerEnabled;
+    private Vector3 input;
+
     void Start()
     {
+        input = new Vector3();
         rb = GetComponent<Rigidbody>();
+        SerialController serialController = FindObjectOfType<SerialController>();
+        if (serialController != null)
+        {
+            serialController.OnMovementInput += (controllerInput) =>
+            {
+                input = controllerInput; 
+                //Debug.Log("Event received with input: " + input);
+            };
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        RotationInput();
-        MovementInput();
+        Rotate();
+        if (!controllerEnabled)
+        {
+            // Raw for now because of no smoothing (better for keyboard), for Arduino maybe without raw.
+            input = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+        }
+        Move(input);
     }
-    void RotationInput()
+
+    void Rotate()
     {
         if (Input.GetKey(KeyCode.Q))
             transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0);
-
         if (Input.GetKey(KeyCode.E))
             transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
     }
 
-    void MovementInput()
+    void Move(Vector3 input)
     {
-        // Raw for now because of no smoothing (better for keyboard), for Arduino maybe without raw.
-        float inputAxisX = Input.GetAxisRaw("Horizontal");
-        float inputAxisZ = Input.GetAxisRaw("Vertical");
-        Vector3 movement = (transform.forward * -inputAxisX) + (transform.right * inputAxisZ);
-        movement = movement.normalized * moveSpeed;
+        Vector3 movement = ((transform.forward * -input.x) + (transform.right * input.z)).normalized * moveSpeed;
         rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
     }
 }
